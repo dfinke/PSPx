@@ -16,3 +16,9 @@ foreach ($x in $xs) {
     $x
 }
 ```
+
+# Return a string, use a powershell block
+
+```powershell
+'This is a powershell block'
+```
