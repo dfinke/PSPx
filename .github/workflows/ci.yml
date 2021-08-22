@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  validate:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        # os: [windows-latest]
+        # os: [windows-latest, ubuntu-18.04]
+        os: [windows-latest, ubuntu-18.04, macos-latest]
+        # os: [ubuntu-18.04]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Run Continuous Integration
+        run: ./ContinuousIntegration/ContinuousIntegration.ps1
+        shell: pwsh
