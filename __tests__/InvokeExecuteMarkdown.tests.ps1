@@ -8,6 +8,7 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
 
     It "Should execute the markdown and return results" {        
         $fileName = $rootDir + "/basicPSBlocks.md"
+
         $actual = Invoke-ExecuteMarkdown $fileName
         
         $actual | Should -Not -BeNullOrEmpty
@@ -20,5 +21,25 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         $actual.Result[3] | Should -BeExactly 2
         $actual.Result[4] | Should -BeExactly 3        
         $actual.Result[5] | Should -BeExactly 'This is a powershell block'
+    }
+
+    It "Should execute the markdown from a URL" {
+        $url = 'https://raw.githubusercontent.com/dfinke/PSPx/master/examples/markdown.md'
+        
+        $actual = Invoke-ExecuteMarkdown $url 
+ 
+        $actual | Should -Not -BeNullOrEmpty
+ 
+        $actual.Result.Count | Should -Be 4
+
+        $expected = '$PSVersionTable
+$pwd
+$env:APPDATA
+function Get-Info {
+    "Test Info $(get-date)"
+}
+Get-Info
+'
+        $actual.Script | Should -Be $expected
     }
 }
