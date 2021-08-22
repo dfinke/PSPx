@@ -11,16 +11,14 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
 
         $actual = Invoke-ExecuteMarkdown $fileName
         
-        $actual | Should -Not -BeNullOrEmpty
-        
+        $actual              | Should -Not -BeNullOrEmpty        
         $actual.Result.Count | Should -Be 6
-
-        $actual.Result[0] | Should -BeExactly 'Hello World'
-        $actual.Result[1] | Should -BeExactly 'Goodbye'
-        $actual.Result[2] | Should -BeExactly 1
-        $actual.Result[3] | Should -BeExactly 2
-        $actual.Result[4] | Should -BeExactly 3        
-        $actual.Result[5] | Should -BeExactly 'This is a powershell block'
+        $actual.Result[0]    | Should -BeExactly 'Hello World'
+        $actual.Result[1]    | Should -BeExactly 'Goodbye'
+        $actual.Result[2]    | Should -BeExactly 1
+        $actual.Result[3]    | Should -BeExactly 2
+        $actual.Result[4]    | Should -BeExactly 3        
+        $actual.Result[5]    | Should -BeExactly 'This is a powershell block'
     }
 
     It "Should execute the markdown from a URL" {
@@ -28,18 +26,8 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         
         $actual = Invoke-ExecuteMarkdown $url 
  
-        $actual | Should -Not -BeNullOrEmpty
- 
+        $actual              | Should -Not -BeNullOrEmpty 
         $actual.Result.Count | Should -Be 4
-
-        $expected = '$PSVersionTable
-$pwd
-$env:APPDATA
-function Get-Info {
-    "Test Info $(get-date)"
-}
-Get-Info
-'
-        $actual.Script | Should -Be $expected
+        $actual.Script       | Should -Not -BeNullOrEmpty
     }
 }
