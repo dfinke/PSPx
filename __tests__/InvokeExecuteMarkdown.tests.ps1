@@ -6,6 +6,10 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         $rootDir = "$PSScriptRoot/testMarkdownFiles"
     }
 
+    It "Should have `px` alias" {
+        Get-Alias px | Should -Not -BeNullOrEmpty
+    }
+
     It "Should execute the markdown and return results" {        
         $fileName = $rootDir + "/basicPSBlocks.md"
 

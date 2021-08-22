@@ -63,5 +63,3 @@ function Invoke-ExecuteMarkdown {
         $PSNotebookRunspace.Close()
     }
 }
-
-Set-Alias px Invoke-ExecuteMarkdown
