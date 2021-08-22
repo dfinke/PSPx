@@ -27,7 +27,8 @@ PowerShell module that can execute scripts written in markdown that can be acces
 
     # Functions to export from this module
     FunctionsToExport  = @(
-        'Invoke-ExecuteMarkdown'
+        'Invoke-ExecuteMarkdown',
+        'Invoke-ScriptAnalyzerMarkdown'
     )
 
     # Aliases to export from this module
