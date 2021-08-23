@@ -1,17 +1,15 @@
-function Invoke-ExecuteMarkdown {
+function Get-MarkdownCodeBlock {
     <#
-        .Example
-        px https://gist.githubusercontent.com/dfinke/610703acacd915a94afc1a4695fc6fce/raw/479e8a5edc62607ac5f753a4eb2a56ead43a841f/testErrors.md
+        .SYNOPSIS
+            Extracts PowerShell code blocks from markdown
+        .EXAMPLE
+        Get-MarkdownCodeBlock -Path C:\temp\myfile.md
     #>
     param(
         [Parameter(ValueFromPipelineByPropertyName)]
         [Alias('FullName')]
         $Path
     )
-
-    Begin {
-        $PSNotebookRunspace = [PSNotebookRunspace]::new()
-    }
 
     Process {
         if (!([System.Uri]::IsWellFormedUriString($Path, 'Absolute'))) {
@@ -25,7 +23,7 @@ function Invoke-ExecuteMarkdown {
 
         $script = $null
         $found = $false
-
+        
         switch ($mdContent) {
             { $_.StartsWith('```ps') -Or $_.StartsWith('```powershell') } { 
                 $found = $true
@@ -43,23 +41,10 @@ function Invoke-ExecuteMarkdown {
                 }
             }
         }
-    }
 
-    End {
-        $PSNotebookRunspace.PowerShell.Streams.Error.Clear()
-        $invokeResult = $PSNotebookRunspace.Invoke($script)
-        
-        if ($PSNotebookRunspace.PowerShell.Streams.Error.Count -gt 0) {
-            $result = $PSNotebookRunspace.PowerShell.Streams.Error | Out-String                    
+        [PSCustomObject]@{
+            Path   = $Path
+            Script = $script
         }
-        
-        $result += $invokeResult
-
-        [PSCustomObject][Ordered]@{
-            Script = $script 
-            Result = $result
-        }
-
-        $PSNotebookRunspace.Close()
     }
 }

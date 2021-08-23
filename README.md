@@ -4,6 +4,12 @@
 Install-Module -Name PSPx
 ```
 
+| Function | Description |
+| --- | --- |
+| `Invoke-ExecuteMarkdown` | Execute PowerShell written in markdown code blocks |
+| `Invoke-ScriptAnalyzerMarkdown` | Run PowerShell Script Analyzer on code blocks written in markdown |
+| `Get-MarkdownCodeBlock` | Install a module |
+
 ## Markdown scripts
 
 `px` can execute scripts written in markdown ([examples/markdown.md](examples/markdown.md)):
