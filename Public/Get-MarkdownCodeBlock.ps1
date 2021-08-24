@@ -6,20 +6,23 @@ function Get-MarkdownCodeBlock {
         Get-MarkdownCodeBlock -Path C:\temp\myfile.md
     #>
     param(
-        [Parameter(ValueFromPipelineByPropertyName)]
+        [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline)]
         [Alias('FullName')]
         $Path
     )
 
     Process {
-        if (!([System.Uri]::IsWellFormedUriString($Path, 'Absolute'))) {
-            $Path = Resolve-Path $Path
-            $mdContent = [System.IO.File]::ReadAllLines($Path)
-        }
-        else {
+        if (([System.Uri]::IsWellFormedUriString($Path, 'Absolute'))) {
             $mdContent = Invoke-RestMethod $Path
             $mdContent = $mdContent -split "`n"
+        }
+        elseif (Test-Path $Path) {
+            $Path = Resolve-Path $Path
+            $mdContent = [System.IO.File]::ReadAllLines($Path)
         }    
+        elseif ($Path -is [string]) {
+            $mdContent = $Path -split "`n"
+        }
 
         $script = $null
         $found = $false
