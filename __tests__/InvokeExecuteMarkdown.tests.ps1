@@ -51,4 +51,29 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         $scriptAsLines = $actual[1].Script.Split("`n")
         $scriptAsLines.Count | Should -Be 4
     }
+
+    It "Should execute markdown strings directly" {
+        $md = @'
+```powershell
+"Hello World"
+```
+'@
+        $actual = Invoke-ExecuteMarkdown $md
+        $scriptAsLines = $actual[0].Script.Split("`n")
+
+        $scriptAsLines.Count | Should -Be 2
+
+    }
+
+    It "Should execute markdown strings piped" {
+        $md = @'
+```powershell
+"Hello World"
+```
+'@
+        $actual = $md | Invoke-ExecuteMarkdown
+        $scriptAsLines = $actual[0].Script.Split("`n")
+
+        $scriptAsLines.Count | Should -Be 2
+    }
 }

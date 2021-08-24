@@ -30,5 +30,29 @@ Describe "Test Invoke Script Analyzer Markdown" -Tag "Invoke-ScriptAnalyzerMarkd
         # second file
         $scriptAsLines = $actual[1].Script.Split("`n")
         $scriptAsLines.Count | Should -Be 4
+    }
+    It "Should analyze markdown strings directly" {
+        $md = @'
+```powershell
+"Hello World"
+```
+'@
+        $actual = Invoke-ScriptAnalyzerMarkdown $md
+        $scriptAsLines = $actual[0].Script.Split("`n")
+
+        $scriptAsLines.Count | Should -Be 2
+
+    }
+
+    It "Should analyze markdown strings piped" {
+        $md = @'
+```powershell
+"Hello World"
+```
+'@
+        $actual = $md | Invoke-ScriptAnalyzerMarkdown
+        $scriptAsLines = $actual[0].Script.Split("`n")
+
+        $scriptAsLines.Count | Should -Be 2
     }    
 }
