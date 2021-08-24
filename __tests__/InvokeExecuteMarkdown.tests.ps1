@@ -6,7 +6,11 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         $rootDir = "$PSScriptRoot/testMarkdownFiles"
     }
 
-    It "Should execute the markdown and return results" {        
+    It "Should have `px` alias" {
+        Get-Alias px | Should -Not -BeNullOrEmpty
+    }
+
+    It "Should execute the markdown and return results" {
         $fileName = $rootDir + "/basicPSBlocks.md"
 
         $actual = Invoke-ExecuteMarkdown $fileName
@@ -29,5 +33,47 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         $actual              | Should -Not -BeNullOrEmpty 
         $actual.Result.Count | Should -Be 4
         $actual.Script       | Should -Not -BeNullOrEmpty
+    }
+    
+    It "Should execute mutiple markdown files" {
+        $actual = Get-ChildItem $rootDir *.md | Invoke-ExecuteMarkdown
+
+        $actual.Count | Should -Be 2 # should find two files
+
+        $actual[0].Cmdlet | Should -BeExactly 'Invoke-ExecuteMarkdown'
+        $actual[1].Cmdlet | Should -BeExactly 'Invoke-ExecuteMarkdown'
+        
+        # first file
+        $scriptAsLines = $actual[0].Script.Split("`n")
+        $scriptAsLines.Count | Should -Be 8
+
+        # second file
+        $scriptAsLines = $actual[1].Script.Split("`n")
+        $scriptAsLines.Count | Should -Be 4
+    }
+
+    It "Should execute markdown strings directly" {
+        $md = @'
+```powershell
+"Hello World"
+```
+'@
+        $actual = Invoke-ExecuteMarkdown $md
+        $scriptAsLines = $actual[0].Script.Split("`n")
+
+        $scriptAsLines.Count | Should -Be 2
+
+    }
+
+    It "Should execute markdown strings piped" {
+        $md = @'
+```powershell
+"Hello World"
+```
+'@
+        $actual = $md | Invoke-ExecuteMarkdown
+        $scriptAsLines = $actual[0].Script.Split("`n")
+
+        $scriptAsLines.Count | Should -Be 2
     }
 }

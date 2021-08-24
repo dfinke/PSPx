@@ -3,3 +3,5 @@ foreach ($directory in @('Private', 'Public')) {
         . $_.FullName 
     }
 }
+
+Set-Alias px Invoke-ExecuteMarkdown
