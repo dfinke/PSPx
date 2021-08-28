@@ -1,3 +1,6 @@
+# 1.2.0
+
+- Add -Headers parameter
 # 1.1.0
 
 - Added `Invoke-ScriptAnalyzerMarkdown` - Run PowerShell Script Analyzer on code blocks written in markdown
