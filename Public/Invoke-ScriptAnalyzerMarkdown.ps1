@@ -5,20 +5,33 @@ function Invoke-ScriptAnalyzerMarkdown {
         
         .Example
         Invoke-ScriptAnalyzerMarkdown https://gist.githubusercontent.com/dfinke/610703acacd915a94afc1a4695fc6fce/raw/479e8a5edc62607ac5f753a4eb2a56ead43a841f/testErrors.md
+
+        .Example
+        $url = 'https://private.url.com/test.md'
+        $header = @{"Authorization"="token $($env:GITHUB_TOKEN)"}
+        Invoke-ScriptAnalyzerMarkdown $url $header
+
     #>
     param(
         [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline)]
         [Alias('FullName')]
-        $Path
+        $Path,
+        $Headers
     )
 
     Process {
-        $mdCodeBlock = Get-MarkdownCodeBlock $Path
+        $mdCodeBlock = Get-MarkdownCodeBlock -Path $Path -Headers $Headers
 
-        $result = Invoke-ScriptAnalyzer -ScriptDefinition $mdCodeBlock.script
+        if (!$mdCodeBlock.Error) {
+
+            $result = Invoke-ScriptAnalyzer -ScriptDefinition $mdCodeBlock.script
     
-        $mdCodeBlock |
-        Add-Member -PassThru -MemberType NoteProperty -Name Cmdlet -Value $MyInvocation.MyCommand |
-        Add-Member -PassThru -MemberType NoteProperty -Name Result -Value $result
+            $mdCodeBlock |
+            Add-Member -PassThru -MemberType NoteProperty -Name Cmdlet -Value $MyInvocation.MyCommand |
+            Add-Member -PassThru -MemberType NoteProperty -Name Result -Value $result
+        }
+        else {
+            $mdCodeBlock
+        }
     }
 }
