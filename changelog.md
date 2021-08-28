@@ -1,6 +1,12 @@
 # 1.2.0
 
-- Add -Headers parameter
+- Add -Headers parameter to `Get-MarkdownCodeBlock`, `Invoke-ExecuteMarkdown`, and `Invoke-ScriptAnalyzerMarkdown`
+
+```powershell
+$url = 'https://private.url.com/test.md'
+$header = @{"Authorization"="token $($env:GITHUB_TOKEN)"}
+Invoke-ExecuteMarkdown $url $header
+```
 # 1.1.0
 
 - Added `Invoke-ScriptAnalyzerMarkdown` - Run PowerShell Script Analyzer on code blocks written in markdown

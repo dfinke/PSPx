@@ -54,5 +54,20 @@ Describe "Test Invoke Script Analyzer Markdown" -Tag "Invoke-ScriptAnalyzerMarkd
         $scriptAsLines = $actual[0].Script.Split("`n")
 
         $scriptAsLines.Count | Should -Be 2
-    }    
+    }
+
+    It "Should throw if no Headers param on the function" {
+        $url = 'https://raw.githubusercontent.com/dfinke/pstestX/main/test.md'
+        { Invoke-ScriptAnalyzerMarkdown -Path $url -Headers @{"A" = 1 } } | Should -Not -Throw 
+    }
+
+    It "Should get an error with a private url" {
+        $url = 'https://raw.githubusercontent.com/dfinke/pstestX/main/test.md'
+        # $header = @{"Authorization"="token $($env:GITHUB_TOKEN)"}        
+        $actual = Invoke-ScriptAnalyzerMarkdown -Path $url
+
+        $actual.Path  | Should -BeExactly $url
+        $actual.Error | Should -BeExactly "404: Not Found"
+    }
+
 }

@@ -76,4 +76,18 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
 
         $scriptAsLines.Count | Should -Be 2
     }
+
+    It "Should throw if no Headers param on the function" {
+        $url = 'https://raw.githubusercontent.com/dfinke/pstestX/main/test.md'
+        { Invoke-ExecuteMarkdown -Path $url -Headers @{"A" = 1 } } | Should -Not -Throw 
+    }
+
+    It "Should get an error with a private url" {
+        $url = 'https://raw.githubusercontent.com/dfinke/pstestX/main/test.md'
+        # $header = @{"Authorization"="token $($env:GITHUB_TOKEN)"}        
+        $actual = Invoke-ExecuteMarkdown $url
+
+        $actual.Path  | Should -BeExactly $url
+        $actual.Error | Should -BeExactly "404: Not Found"
+    }
 }

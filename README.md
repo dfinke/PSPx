@@ -30,3 +30,13 @@ px https://gist.githubusercontent.com/dfinke/610703acacd915a94afc1a4695fc6fce/ra
 ### Output
 
 ![](/media/PSOutput.png)
+
+## Access Tokens
+
+The `-Headers` parameter can be used to add access tokens to the request for markdown files behind a private Url. For example, if they are in a private GutHub repository, or Azure DevOps.
+
+```powershell
+$url = 'https://private.url.com/test.md'
+$header = @{"Authorization"="token $($env:GITHUB_TOKEN)"}
+Invoke-ExecuteMarkdown $url $header
+```
