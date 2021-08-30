@@ -53,7 +53,7 @@ function Get-MarkdownCodeBlock {
         $found = $false
         
         switch ($mdContent) {
-            { $_.StartsWith('```ps') -Or $_.StartsWith('```powershell') } { 
+            { $_.Trim() -eq '```ps' -Or $_.Trim() -eq '```ps1' -Or $_.Trim() -eq '```powershell' } {
                 $found = $true
                 continue
             }

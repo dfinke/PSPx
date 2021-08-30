@@ -16,7 +16,7 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         $actual = Invoke-ExecuteMarkdown $fileName
         
         $actual              | Should -Not -BeNullOrEmpty        
-        $actual.Result.Count | Should -Be 6
+        $actual.Result.Count | Should -Be 7
         $actual.Result[0]    | Should -BeExactly 'Hello World'
         $actual.Result[1]    | Should -BeExactly 'Goodbye'
         $actual.Result[2]    | Should -BeExactly 1
@@ -45,7 +45,7 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         
         # first file
         $scriptAsLines = $actual[0].Script.Split("`n")
-        $scriptAsLines.Count | Should -Be 8
+        $scriptAsLines.Count | Should -Be 9
 
         # second file
         $scriptAsLines = $actual[1].Script.Split("`n")

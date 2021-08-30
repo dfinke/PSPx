@@ -6,6 +6,16 @@ Describe "Test Get Markdown CodeBlock" -Tag "Get-MarkdownCodeBlock" {
         $rootDir = "$PSScriptRoot/testMarkdownFiles"
     }
 
+    It "Should read a local markdown file" {
+        $fileName = $rootDir + "/basicPSBlocks.md"
+
+        $actual = Get-MarkdownCodeBlock $fileName
+        $scriptAsLines = $actual[0].Script.Split("`n")
+
+        $actual.Path | Should -BeExactly 'D:\mygit\PSPx\__tests__\testMarkdownFiles\basicPSBlocks.md'
+        $scriptAsLines.Count | Should -Be 9
+    }
+
     It "Should read a url" {
         $url = 'https://raw.githubusercontent.com/dfinke/PSPx/master/examples/markdown.md'
         

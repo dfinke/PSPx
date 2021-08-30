@@ -25,7 +25,7 @@ Describe "Test Invoke Script Analyzer Markdown" -Tag "Invoke-ScriptAnalyzerMarkd
         
         # first file
         $scriptAsLines = $actual[0].Script.Split("`n")
-        $scriptAsLines.Count | Should -Be 8
+        $scriptAsLines.Count | Should -Be 9
 
         # second file
         $scriptAsLines = $actual[1].Script.Split("`n")
