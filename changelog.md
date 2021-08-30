@@ -1,3 +1,7 @@
+# 1.2.1
+
+- Support ` ```ps1 ` code block
+
 # 1.2.0
 
 - Add -Headers parameter to `Get-MarkdownCodeBlock`, `Invoke-ExecuteMarkdown`, and `Invoke-ScriptAnalyzerMarkdown`
