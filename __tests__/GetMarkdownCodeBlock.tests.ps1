@@ -3,16 +3,16 @@ Import-Module $PSScriptRoot/../PSPx.psd1 -Force
 Describe "Test Get Markdown CodeBlock" -Tag "Get-MarkdownCodeBlock" {
 
     BeforeAll {
-        $rootDir = "$PSScriptRoot/testMarkdownFiles"
+        $rootDir = Join-Path $PSScriptRoot 'testMarkdownFiles'
     }
 
     It "Should read a local markdown file" {
-        $fileName = $rootDir + "/basicPSBlocks.md"
+        $fileName = Join-Path $rootDir 'basicPSBlocks.md'
 
         $actual = Get-MarkdownCodeBlock $fileName
         $scriptAsLines = $actual[0].Script.Split("`n")
 
-        $actual.Path | Should -BeExactly 'D:\mygit\PSPx\__tests__\testMarkdownFiles\basicPSBlocks.md'
+        $actual.Path | Should -BeExactly $fileName
         $scriptAsLines.Count | Should -Be 9
     }
 
