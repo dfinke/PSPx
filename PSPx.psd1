@@ -6,7 +6,7 @@
     RootModule         = 'PSPx.psm1'
 
     # Version number of this module.
-    ModuleVersion      = '1.2.0'
+    ModuleVersion      = '1.2.1'
 
     # ID used to uniquely identify this module
     GUID               = '8ce136b4-c11b-4ede-a1f6-9822e3212c16'
