@@ -22,3 +22,9 @@ foreach ($x in $xs) {
 ```powershell
 'This is a powershell block'
 ```
+
+# Add Numbers
+
+```ps1
+3+4+5
+```
