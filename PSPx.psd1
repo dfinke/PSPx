@@ -6,7 +6,7 @@
     RootModule         = 'PSPx.psm1'
 
     # Version number of this module.
-    ModuleVersion      = '1.2.1'
+    ModuleVersion      = '1.3.0'
 
     # ID used to uniquely identify this module
     GUID               = '8ce136b4-c11b-4ede-a1f6-9822e3212c16'
@@ -29,7 +29,8 @@ PowerShell module that can execute scripts written in markdown that can be acces
     FunctionsToExport  = @(
         'Get-MarkdownCodeBlock',
         'Invoke-ExecuteMarkdown',
-        'Invoke-ScriptAnalyzerMarkdown'
+        'Invoke-ScriptAnalyzerMarkdown',
+        'Invoke-ScriptFormatterMarkdown'
     )
 
     # Aliases to export from this module
