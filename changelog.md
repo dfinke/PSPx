@@ -1,3 +1,7 @@
+# 1.3.0
+
+- Added `Invoke-ScriptFormatterMarkdown`. Formats the PowerShell code block using ScriptAnalyzer
+
 # 1.2.1
 
 - Support ` ```ps1 ` code block
