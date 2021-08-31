@@ -38,7 +38,7 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
     It "Should execute mutiple markdown files" {
         $actual = Get-ChildItem $rootDir *.md | Invoke-ExecuteMarkdown
 
-        $actual.Count | Should -Be 2 # should find two files
+        $actual.Count | Should -Be 3
 
         $actual[0].Cmdlet | Should -BeExactly 'Invoke-ExecuteMarkdown'
         $actual[1].Cmdlet | Should -BeExactly 'Invoke-ExecuteMarkdown'
@@ -49,7 +49,7 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
 
         # second file
         $scriptAsLines = $actual[1].Script.Split("`n")
-        $scriptAsLines.Count | Should -Be 4
+        $scriptAsLines.Count | Should -Be 6
     }
 
     It "Should execute markdown strings directly" {

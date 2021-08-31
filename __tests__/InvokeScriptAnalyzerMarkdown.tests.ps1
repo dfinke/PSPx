@@ -18,7 +18,7 @@ Describe "Test Invoke Script Analyzer Markdown" -Tag "Invoke-ScriptAnalyzerMarkd
     It "Should execute mutiple markdown files" {
         $actual = Get-ChildItem $rootDir *.md | Invoke-ScriptAnalyzerMarkdown
 
-        $actual.Count | Should -Be 2 # should find two files
+        $actual.Count | Should -Be 3
 
         $actual[0].Cmdlet | Should -BeExactly 'Invoke-ScriptAnalyzerMarkdown'
         $actual[1].Cmdlet | Should -BeExactly 'Invoke-ScriptAnalyzerMarkdown'
@@ -29,7 +29,7 @@ Describe "Test Invoke Script Analyzer Markdown" -Tag "Invoke-ScriptAnalyzerMarkd
 
         # second file
         $scriptAsLines = $actual[1].Script.Split("`n")
-        $scriptAsLines.Count | Should -Be 4
+        $scriptAsLines.Count | Should -Be 6
     }
     It "Should analyze markdown strings directly" {
         $md = @'
