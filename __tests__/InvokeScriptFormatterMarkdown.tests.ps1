@@ -1,24 +1,24 @@
 Import-Module $PSScriptRoot/../PSPx.psd1 -Force
 
-Describe "Test Invoke Script Formatter Markdown" -Tag "Invoke-ScriptFormatterMarkdown" -Skip {
+Describe "Test Invoke Script Formatter Markdown" -Tag "Invoke-ScriptFormatterMarkdown" {
 
     BeforeAll {
         $rootDir = "$PSScriptRoot/testMarkdownFiles"
     }
 
-    It "Should run PSSA formatter on the markdown script blocks" {        
-        #$fileName = $rootDir + "/PSBlocksPSSA-Issues.md"
-        $s = @'
-```ps1
-@{
-1='a'
-10='b'
-100='c'
-}
-```
-'@
-        $actual = Invoke-ScriptFormatterMarkdown $s
+    It "Should handle formatting script blocks" {
+        $fileName = $rootDir + "/FormatPSBlocks.md"
 
-        $actual | Should -Be "hello"
+        $actual = Invoke-ScriptFormatterMarkdown $fileName
+        $lines = $actual.Result -split "`n"
+
+        $actual.Cmdlet | Should -BeExactly 'Invoke-ScriptFormatterMarkdown'
+        
+        $lines.Count | Should -Be 5
+        $lines[0] | Should -BeExactly '@{'
+        $lines[1] | Should -BeExactly "    1   ='a'"
+        $lines[2] | Should -BeExactly "    10  ='b'"
+        $lines[3] | Should -BeExactly "    100 ='c'"
+        $lines[4] | Should -BeExactly '}'
     }
 }

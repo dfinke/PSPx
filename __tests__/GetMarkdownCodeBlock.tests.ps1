@@ -13,7 +13,7 @@ Describe "Test Get Markdown CodeBlock" -Tag "Get-MarkdownCodeBlock" {
         $scriptAsLines = $actual[0].Script.Split("`n")
 
         $actual.Path | Should -BeExactly $fileName
-        $scriptAsLines.Count | Should -Be 9
+        $scriptAsLines.Count | Should -Be 8
     }
 
     It "Should read a url" {
@@ -25,7 +25,7 @@ Describe "Test Get Markdown CodeBlock" -Tag "Get-MarkdownCodeBlock" {
         $actual.Script | Should -Not -BeNullOrEmpty
         
         $lines = $actual.Script -split "`n"
-        $lines.Count | Should -Be 8
+        $lines.Count | Should -Be 7
         
         $lines[0].Trim() | Should -BeExactly '$PSVersionTable'
         $lines[1].Trim() | Should -BeExactly '$pwd'

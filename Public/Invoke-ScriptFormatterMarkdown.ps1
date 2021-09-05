@@ -24,7 +24,8 @@ function Invoke-ScriptFormatterMarkdown {
 
         if (!$mdCodeBlock.Error) {
 
-            $result = Invoke-Formatter -ScriptDefinition $mdCodeBlock.script
+            $script = $mdCodeBlock.script -join "`n"
+            $result = Invoke-Formatter -ScriptDefinition $script
 
             $mdCodeBlock |
             Add-Member -PassThru -MemberType NoteProperty -Name Cmdlet -Value $MyInvocation.MyCommand |
