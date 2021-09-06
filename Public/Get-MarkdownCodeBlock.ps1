@@ -42,7 +42,8 @@ function Update-MarkdownCodeFormatting {
 
 function Invoke-ParseMarkdown {
     param(
-        [string[]]$markdown
+        [string[]]$markdown,
+        [Switch]$Raw
     )
 
     $parsedMD = @()
@@ -78,9 +79,14 @@ function Invoke-ParseMarkdown {
         }
     }
 
-    [PSCustomObject]@{
-        Path   = $Path
-        Script = (Get-PSScript $parsedMD)
+    if ($Raw) {
+        $parsedMD | Add-Member -PassThru -MemberType NoteProperty -Name Path -Value $Path
+    }
+    else {
+        [PSCustomObject]@{
+            Path   = $Path
+            Script = (Get-PSScript $parsedMD)
+        }
     }
 }
 
@@ -101,7 +107,8 @@ function Get-MarkdownCodeBlock {
         [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline)]
         [Alias('FullName')]
         $Path,
-        $Headers
+        $Headers,
+        [Switch]$Raw
     )
 
     Process {
@@ -135,6 +142,6 @@ function Get-MarkdownCodeBlock {
             $mdContent = $Path -split "`n"
         }
 
-        Invoke-ParseMarkdown $mdContent
+        Invoke-ParseMarkdown $mdContent -Raw:$Raw
     }
 }
