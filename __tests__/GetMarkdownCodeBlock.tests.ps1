@@ -49,4 +49,29 @@ Describe "Test Get Markdown CodeBlock" -Tag "Get-MarkdownCodeBlock" {
         $actual.Path  | Should -BeExactly $url
         $actual.Error | Should -BeExactly "404: Not Found"
     }
+
+    It "Should read each block of the markdown files" {
+        $rootdir = Join-Path $PSScriptRoot 'testRawMDFiles'
+        $fileName = Join-Path $rootDir 'simple.md'
+
+        $actual = Get-MarkdownCodeBlock $fileName -Raw
+
+        $actual.Count | Should -Be 2
+
+        $actual[0].Path | Should -BeExactly $fileName
+        $actual[0].Type | Should -BeExactly 'Markdown'
+        $actual[0].Text.Count | Should -Be 3
+        
+        $actual[0].Text[0] | Should -BeNullOrEmpty
+        $actual[0].Text[1] | Should -BeExactly '# This is a simple test'
+        $actual[0].Text[2] | Should -BeNullOrEmpty
+        
+        $actual[1].Path | Should -BeExactly $fileName
+        $actual[1].Type | Should -BeExactly 'PSScript'
+        $actual[1].Text.Count | Should -Be 3
+
+        $actual[1].Text[0] | Should -BeExactly '```powershell'
+        $actual[1].Text[1] | Should -BeExactly '"Hello World"'
+        $actual[1].Text[2] | Should -BeExactly '```'
+    }
 }
