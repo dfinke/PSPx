@@ -22,6 +22,7 @@ function Get-PSScript {
 
 function Update-MarkdownCodeFormatting {
     param(
+        [Parameter(Mandatory)]
         $parsedMarkdown
     )
 
@@ -38,6 +39,8 @@ function Update-MarkdownCodeFormatting {
             continue 
         }
     }
+    
+    $parsedMarkdown
 } 
 
 function Invoke-ParseMarkdown {
