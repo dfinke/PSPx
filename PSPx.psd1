@@ -31,6 +31,7 @@ PowerShell module that can execute scripts written in markdown that can be acces
         'Invoke-ExecuteMarkdown',
         'Invoke-ScriptAnalyzerMarkdown',
         'Invoke-ScriptFormatterMarkdown',
+        'Invoke-UpdateScriptFormat',
         'Update-MarkdownCodeFormatting'
     )
 
