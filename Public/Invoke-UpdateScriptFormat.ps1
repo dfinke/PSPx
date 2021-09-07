@@ -8,6 +8,6 @@ function Invoke-UpdateScriptFormat {
 
     Process {
         $md = Get-MarkdownCodeBlock -Path $Path -Raw -Headers $Headers
-        Update-MarkdownCodeFormatting $md
+        (Update-MarkdownCodeFormatting $md).Text
     }
 }
