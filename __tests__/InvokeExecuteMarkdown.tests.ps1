@@ -45,11 +45,11 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         
         # first file
         $scriptAsLines = $actual[0].Script.Split("`n")
-        $scriptAsLines.Count | Should -Be 9
+        $scriptAsLines.Count | Should -Be 8
 
         # second file
         $scriptAsLines = $actual[1].Script.Split("`n")
-        $scriptAsLines.Count | Should -Be 6
+        $scriptAsLines.Count | Should -Be 5
     }
 
     It "Should execute markdown strings directly" {
@@ -61,7 +61,7 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         $actual = Invoke-ExecuteMarkdown $md
         $scriptAsLines = $actual[0].Script.Split("`n")
 
-        $scriptAsLines.Count | Should -Be 2
+        $scriptAsLines.Count | Should -Be 1
 
     }
 
@@ -74,7 +74,7 @@ Describe "Test Invoke Execute Markdown" -Tag "Invoke-ExecuteMarkdown" {
         $actual = $md | Invoke-ExecuteMarkdown
         $scriptAsLines = $actual[0].Script.Split("`n")
 
-        $scriptAsLines.Count | Should -Be 2
+        $scriptAsLines.Count | Should -Be 1
     }
 
     It "Should throw if no Headers param on the function" {

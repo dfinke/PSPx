@@ -24,7 +24,7 @@ function Invoke-ScriptAnalyzerMarkdown {
 
         if (!$mdCodeBlock.Error) {
 
-            $result = Invoke-ScriptAnalyzer -ScriptDefinition $mdCodeBlock.script
+            $result = Invoke-ScriptAnalyzer -ScriptDefinition ($mdCodeBlock.script -join "`n")
     
             $mdCodeBlock |
             Add-Member -PassThru -MemberType NoteProperty -Name Cmdlet -Value $MyInvocation.MyCommand |

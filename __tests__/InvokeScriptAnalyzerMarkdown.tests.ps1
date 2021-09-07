@@ -25,11 +25,11 @@ Describe "Test Invoke Script Analyzer Markdown" -Tag "Invoke-ScriptAnalyzerMarkd
         
         # first file
         $scriptAsLines = $actual[0].Script.Split("`n")
-        $scriptAsLines.Count | Should -Be 9
+        $scriptAsLines.Count | Should -Be 8
 
         # second file
         $scriptAsLines = $actual[1].Script.Split("`n")
-        $scriptAsLines.Count | Should -Be 6
+        $scriptAsLines.Count | Should -Be 5
     }
     It "Should analyze markdown strings directly" {
         $md = @'
@@ -40,7 +40,7 @@ Describe "Test Invoke Script Analyzer Markdown" -Tag "Invoke-ScriptAnalyzerMarkd
         $actual = Invoke-ScriptAnalyzerMarkdown $md
         $scriptAsLines = $actual[0].Script.Split("`n")
 
-        $scriptAsLines.Count | Should -Be 2
+        $scriptAsLines.Count | Should -Be 1
 
     }
 
@@ -53,7 +53,7 @@ Describe "Test Invoke Script Analyzer Markdown" -Tag "Invoke-ScriptAnalyzerMarkd
         $actual = $md | Invoke-ScriptAnalyzerMarkdown
         $scriptAsLines = $actual[0].Script.Split("`n")
 
-        $scriptAsLines.Count | Should -Be 2
+        $scriptAsLines.Count | Should -Be 1
     }
 
     It "Should throw if no Headers param on the function" {
