@@ -1,15 +1,15 @@
 function Invoke-ScriptFormatterMarkdown {
     <#
         .Synopsis
-        Run PowerShell Script Analyzer on code blocks written in markdown
-        
+        Run PowerShell Script Analyzer Formatter on code blocks written in markdown
+                
         .Example
-        Invoke-ScriptAnalyzerMarkdown https://gist.githubusercontent.com/dfinke/610703acacd915a94afc1a4695fc6fce/raw/479e8a5edc62607ac5f753a4eb2a56ead43a841f/testErrors.md
+        Invoke-ScriptFormatterMarkdown https://gist.githubusercontent.com/dfinke/610703acacd915a94afc1a4695fc6fce/raw/479e8a5edc62607ac5f753a4eb2a56ead43a841f/testErrors.md
 
         .Example
         $url = 'https://private.url.com/test.md'
         $header = @{"Authorization"="token $($env:GITHUB_TOKEN)"}
-        Invoke-ScriptAnalyzerMarkdown $url $header
+        Invoke-ScriptFormatterMarkdown $url $header
 
     #>
     param(
