@@ -3,7 +3,7 @@
 - Do you have a very long installation documentation for our project and need a quick way of testing it? 
 - It is general purpose tool that can be used for multiple purposes like executing a tutorial documentation, using docs as a script, etc.
 
-Collects fenced code blocks from input markdown file and executes them in same order as they appear in the file. 
+PSPx collects fenced code blocks from input markdown file and executes them in same order as they appear in the file.
 
 Example of fenced code block in markdown file
 
@@ -30,11 +30,12 @@ PSPx collects all the code blocks and executes them as a single script.
 ## Markdown scripts
 
 `px` can execute scripts written in markdown ([examples/markdown.md](examples/markdown.md)):
+
 ```powershell
 px examples/markdown.md
 ```
 
-it can also execute scripts written in markdown from a `url`:
+It can also execute scripts written in markdown from a `url`:
 
 ```powershell
 px https://gist.githubusercontent.com/dfinke/610703acacd915a94afc1a4695fc6fce/raw/479e8a5edc62607ac5f753a4eb2a56ead43a841f/testErrors.md | fl
